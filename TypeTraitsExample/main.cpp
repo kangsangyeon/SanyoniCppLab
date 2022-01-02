@@ -31,6 +31,30 @@ struct false_type
 	enum _value_ { value = false };
 };
 
+/*
+ * value_type는 템플릿 매개변수로 bool형을 받습니다.
+ * 이처럼 템플릿 매개변수로 타입 뿐만 아니라 bool형과 int형을 받을 수 있는데,
+ * 이런 매개변수를 비형식 템플릿 매개변수(Non-type template argument)라고 합니다.
+ *
+ * 비형식 템플릿 매개변수를 받아 수학적 연산도 가능합니다.
+ *
+ * value_type<false>는 false_type을 상속받고, value_type<true>는 true_type을 상속받습니다.
+ * 매개변수로 건네진 bool형의 값에 따라 내부에 정의된 enum의 값을 결정짓기 위해 이렇게 상속받습니다.
+ *
+ * https://caniro.tistory.com/144
+ * https://en.cppreference.com/w/cpp/language/template_parameters
+ */
+
+template <bool _value = false>
+struct value_type : false_type
+{
+};
+
+template <>
+struct value_type<true> : true_type
+{
+};
+
 /// <summary>
 /// remove_const 함수들은 다른 메타 함수와는 다르게
 /// value가 아닌 타입을 내놓습니다.
@@ -137,8 +161,135 @@ struct is_floating_point : is_floating_point_base<typename remove_const<T>::type
 };
 
 /*
+ * is_arithmetic, is_fundamental, is_compound
+ * is_arithmetic 메타 함수는 매개변수로 받은 타입이 정수형 또는 실수형일 때 true를 반환하는 함수입니다.
+ * is_fundamental 메타 함수는 is_arithmetic 에 nullptr_t를 검사하는 로직이 추가된 함수입니다.
+ * is_compound 메타 함수는 정수형, 실수형, nullptr_t, void 가 아닌 모든 타입에 대해 true를 반환하는 함수입니다.
+ *
+ * 앞서 구현한 is_integral과 is_floating_point를 상속하여 매우 간단하게 구현할 수 있습니다.
+ */
+
+template <typename T>
+struct is_arithmetic : value_type<is_integral<T>::value | is_floating_point<T>::value>
+{
+};
+
+template <typename T>
+struct is_fundamental : value_type<is_arithmetic<T>::value | is_nullptr<T>::value | is_void<T>::value>
+{
+};
+
+template <typename T>
+struct is_compound : value_type<!is_fundamental<T>::value>
+{
+};
+
+/*
+ * is_pointer, is_reference, is_const, is_volatile, is_signed, is_unsigned
+ */
+
+template <typename T>
+struct is_pointer_base : false_type
+{
+};
+
+template <typename T>
+struct is_pointer_base<T*> : true_type
+{
+};
+
+template <typename T>
+struct is_pointer : is_pointer_base<typename remove_const<T>::type>
+{
+};
+
+template <typename T>
+struct is_reference_base : false_type
+{
+};
+
+template <typename T>
+struct is_reference_base<T&> : true_type
+{
+};
+
+template <typename T>
+struct is_reference_base<T&&> : true_type
+{
+};
+
+template <typename T>
+struct is_reference : is_reference_base<typename remove_const<T>::type>
+{
+};
+
+template <typename T>
+struct is_const : false_type
+{
+};
+
+template <typename T>
+struct is_const<const T> : true_type
+{
+};
+
+template <typename T>
+struct is_volatile : false_type
+{
+};
+
+template <typename T>
+struct is_volatile<volatile T> : true_type
+{
+};
+
+template <typename T, bool _is_arithmethic = is_arithmetic<T>::value>
+struct is_signed_base : value_type<T(-1) < T(0)>
+{
+};
+
+template <typename T>
+struct is_signed_base<T, false> : false_type
+{
+};
+
+template <typename T>
+struct is_signed : is_signed_base<T>
+{
+};
+
+/*
+ * is_array
+ * 정적 배열인지 판별하는 메타 함수입니다.
+ * 크기가 지정되지 않은 배열 타입과 크기가 정해진 배열 타입 모두 판별이 가능합니다.
+ * 크기가 미리 정해진 배열 타입인 경우, 그 크기를 얻어올 수 있습니다.
+ * (미리 정해진 크기의 배열 타입은 컴파일 타임에 결정되는 크기이기 때문입니다.)
+ *
+ * *동적 배열은 포인터이기 때문에 확인이 불가능합니다.
+ */
+
+template <typename T>
+struct is_array : false_type
+{
+};
+
+template <typename T>
+struct is_array<T[]> : true_type
+{
+};
+
+template <typename T, size_t ArrSize>
+struct is_array<T[ArrSize]> : true_type
+{
+};
+
+/*
  * Test Functions
  */
+
+class CustomClass
+{
+};
 
 void ThisFunctionWillReturnVoid()
 {
@@ -198,6 +349,48 @@ void TestIsFloatingPoint()
 	std::cout << std::endl;
 }
 
+void TestIsArithmetic()
+{
+	std::cout << "is_arithmetic<int>::value = " << is_arithmetic<int>::value << std::endl;
+	std::cout << "is_arithmetic<float>::value = " << is_arithmetic<float>::value << std::endl;
+	std::cout << "is_arithmetic<int*>::value = " << is_arithmetic<int*>::value << std::endl;
+	std::cout << "is_arithmetic<const int>::value = " << is_arithmetic<const int>::value << std::endl;
+	std::cout << "is_arithmetic<int&>::value = " << is_arithmetic<int&>::value << std::endl;
+	std::cout << "is_arithmetic<nullptr_t>::value = " << is_arithmetic<nullptr_t>::value << std::endl;
+	std::cout << std::endl;
+}
+
+void TestIsFundamental()
+{
+	std::cout << "is_fundamental<int>::value = " << is_fundamental<int>::value << std::endl;
+	std::cout << "is_fundamental<float>::value = " << is_fundamental<float>::value << std::endl;
+	std::cout << "is_fundamental<nullptr_t>::value = " << is_fundamental<nullptr_t>::value << std::endl;
+	std::cout << "is_fundamental<decltype(nullptr)>::value = " << is_fundamental<decltype(nullptr)>::value << std::endl;
+	std::cout << "is_fundamental<CustomClass>::value = " << is_fundamental<CustomClass>::value << std::endl;
+	std::cout << std::endl;
+}
+
+void TestIsCompound()
+{
+	std::cout << "is_compound<int>::value = " << is_compound<int>::value << std::endl;
+	std::cout << "is_compound<float>::value = " << is_compound<float>::value << std::endl;
+	std::cout << "is_compound<nullptr_t>::value = " << is_compound<nullptr_t>::value << std::endl;
+	std::cout << "is_compound<decltype(nullptr)>::value = " << is_compound<decltype(nullptr)>::value << std::endl;
+	std::cout << "is_compound<CustomClass>::value = " << is_compound<CustomClass>::value << std::endl;
+	std::cout << std::endl;
+
+	std::cout << is_signed_base<CustomClass>::value << std::endl;
+}
+
+void TestIsArray()
+{
+	std::cout << "is_array<int>::value = " << is_array<int>::value << std::endl;
+	std::cout << "is_array<int[]>::value = " << is_array<int[]>::value << std::endl;
+	std::cout << "is_array<int[20]>::value = " << is_array<int[20]>::value << std::endl;
+	std::cout << "is_array<CustomClass>::value = " << is_array<CustomClass>::value << std::endl;
+	std::cout << "is_array<CustomClass[]>::value = " << is_array<CustomClass[]>::value << std::endl;
+}
+
 int main()
 {
 	TestIsSame();
@@ -205,6 +398,10 @@ int main()
 	TestIsNullptr();
 	TestIsIntegral();
 	TestIsFloatingPoint();
+	TestIsArithmetic();
+	TestIsFundamental();
+	TestIsCompound();
+	TestIsArray();
 
 	return 0;
 }
