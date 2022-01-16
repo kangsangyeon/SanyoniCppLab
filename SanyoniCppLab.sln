@@ -13,6 +13,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VirtualFunctionTableAddress
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetKeyStateVsGetAsyncKeyState", "GetKeyStateVsGetAsyncKeyState\GetKeyStateVsGetAsyncKeyState.vcxproj", "{5D228191-39C6-464C-8839-11C40ED9FBD3}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetAsyncKeyStateExample", "GetAsyncKeyStateExample\GetAsyncKeyStateExample.vcxproj", "{2CDFA4CB-2540-479A-BE3A-CD84367148D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +63,14 @@ Global
 		{5D228191-39C6-464C-8839-11C40ED9FBD3}.Release|x64.Build.0 = Release|x64
 		{5D228191-39C6-464C-8839-11C40ED9FBD3}.Release|x86.ActiveCfg = Release|Win32
 		{5D228191-39C6-464C-8839-11C40ED9FBD3}.Release|x86.Build.0 = Release|Win32
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Debug|x64.ActiveCfg = Debug|x64
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Debug|x64.Build.0 = Debug|x64
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Debug|x86.ActiveCfg = Debug|Win32
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Debug|x86.Build.0 = Debug|Win32
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Release|x64.ActiveCfg = Release|x64
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Release|x64.Build.0 = Release|x64
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Release|x86.ActiveCfg = Release|Win32
+		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
