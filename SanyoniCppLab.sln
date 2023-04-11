@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UniformInitializationExampl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VectorResizeExample", "VectorResizeExample\VectorResizeExample.vcxproj", "{F33DE2EE-9750-4D75-BF12-5D60A12BD6AA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CRTSExample", "CRTSExample\CRTSExample.vcxproj", "{DCFEFA2B-4492-4A8C-A761-18B71913C360}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -91,6 +93,14 @@ Global
 		{F33DE2EE-9750-4D75-BF12-5D60A12BD6AA}.Release|x64.Build.0 = Release|x64
 		{F33DE2EE-9750-4D75-BF12-5D60A12BD6AA}.Release|x86.ActiveCfg = Release|Win32
 		{F33DE2EE-9750-4D75-BF12-5D60A12BD6AA}.Release|x86.Build.0 = Release|Win32
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Debug|x64.ActiveCfg = Debug|x64
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Debug|x64.Build.0 = Debug|x64
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Debug|x86.ActiveCfg = Debug|Win32
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Debug|x86.Build.0 = Debug|Win32
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Release|x64.ActiveCfg = Release|x64
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Release|x64.Build.0 = Release|x64
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Release|x86.ActiveCfg = Release|Win32
+		{DCFEFA2B-4492-4A8C-A761-18B71913C360}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
