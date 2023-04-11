@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetKeyStateVsGetAsyncKeySta
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GetAsyncKeyStateExample", "GetAsyncKeyStateExample\GetAsyncKeyStateExample.vcxproj", "{2CDFA4CB-2540-479A-BE3A-CD84367148D6}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UniformInitializationExample", "UniformInitializationExample\UniformInitializationExample.vcxproj", "{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +73,14 @@ Global
 		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Release|x64.Build.0 = Release|x64
 		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Release|x86.ActiveCfg = Release|Win32
 		{2CDFA4CB-2540-479A-BE3A-CD84367148D6}.Release|x86.Build.0 = Release|Win32
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Debug|x64.ActiveCfg = Debug|x64
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Debug|x64.Build.0 = Debug|x64
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Debug|x86.ActiveCfg = Debug|Win32
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Debug|x86.Build.0 = Debug|Win32
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Release|x64.ActiveCfg = Release|x64
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Release|x64.Build.0 = Release|x64
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Release|x86.ActiveCfg = Release|Win32
+		{6F2DE5A1-E14C-4DD7-A20E-DABA29018DFC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
