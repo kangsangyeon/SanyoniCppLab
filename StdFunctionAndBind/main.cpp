@@ -1,4 +1,4 @@
-#include <functional>
+ï»¿#include <functional>
 #include <iostream>
 
 class SomeClass
@@ -35,32 +35,32 @@ int main()
 		return 2;
 	};
 
-	// std::function¿¡ Àü¿ª º¯¼ö¸¦ ´ëÀÔÇÒ ¼ö ÀÖ½À´Ï´Ù.
+	// std::functionì— ì „ì—­ ë³€ìˆ˜ë¥¼ ëŒ€ì…í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 	std::cout << "<global function assign to std::function> " << std::endl;
 	std::function<int(char)> _globalFunction = GlobalFunction;
 	std::cout << _globalFunction('a') << std::endl;
 	std::cout << std::endl;
 
-	// std::function¿¡ ¶÷´Ù ÇÔ¼ö¸¦ ´ëÀÔÇÒ ¼ö ÀÖ½À´Ï´Ù.
+	// std::functionì— ëŒë‹¤ í•¨ìˆ˜ë¥¼ ëŒ€ì…í•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 	std::cout << "<lambda function assign to std::function> " << std::endl;
 	std::function<int(char)> _lambdaFunction = SomeLambda;
 	std::cout << _lambdaFunction(10) << std::endl;
 	std::cout << std::endl;
 
-	// Àü¿ª º¯¼ö¸¦ ¹ÙÀÎµåÇÒ ¼ö ÀÖ½À´Ï´Ù.
+	// ì „ì—­ ë³€ìˆ˜ë¥¼ ë°”ì¸ë“œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 	std::cout << "<bind global function> " << std::endl;
 	std::function<int(void)> _bindGlobalFunction = std::bind(GlobalFunction, 'a');
 	std::cout << _bindGlobalFunction() << std::endl;
 	std::cout << std::endl;
 
-	// ¶÷´Ù ÇÔ¼ö¸¦ ¹ÙÀÎµåÇÒ ¼ö ÀÖ½À´Ï´Ù.
+	// ëŒë‹¤ í•¨ìˆ˜ë¥¼ ë°”ì¸ë“œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
 	std::cout << "<bind lambda function> " << std::endl;
 	std::function<int(void)> _bindLambda = std::bind(SomeLambda, 222);
 	std::cout << _bindLambda() << std::endl;
 	std::cout << std::endl;
 
-	// ¸â¹ö º¯¼ö¸¦ ¹ÙÀÎµåÇÒ ¼ö ÀÖ½À´Ï´Ù.
-	// ÀÌ ¶§, ¾ğ¹Ù¿îµå ÇÔ¼ö¸¦ È£ÃâÇÏµí µÎ ¹øÂ° ¸Å°³º¯¼ö·Î Å¸ÀÔ¿¡ ¸Â´Â ÀÎ½ºÅÏ½ºÀÇ pointer¸¦ °Ç³×ÁÖ¾î¾ß ÇÕ´Ï´Ù.
+	// ë©¤ë²„ ë³€ìˆ˜ë¥¼ ë°”ì¸ë“œí•  ìˆ˜ ìˆìŠµë‹ˆë‹¤.
+	// ì´ ë•Œ, ì–¸ë°”ìš´ë“œ í•¨ìˆ˜ë¥¼ í˜¸ì¶œí•˜ë“¯ ë‘ ë²ˆì§¸ ë§¤ê°œë³€ìˆ˜ë¡œ íƒ€ì…ì— ë§ëŠ” ì¸ìŠ¤í„´ìŠ¤ì˜ pointerë¥¼ ê±´ë„¤ì£¼ì–´ì•¼ í•©ë‹ˆë‹¤.
 	std::cout << "<bind member function> " << std::endl;
 	SomeClass _instance;
 	std::function<int(void)> _bindMemberFunction = std::bind(&SomeClass::SayFloat, &_instance, 90.f);
@@ -70,13 +70,13 @@ int main()
 	const int _num = 1;
 	char _char = 'a';
 
-	// bindÇÒ ¶§ ¸ğµç ¸Å°³º¯¼ö¸¦ bindÇÏÁö ¾Ê°íµµ placeholder¸¦ »ç¿ëÇÏ¿© ÀÏ´Ü ¹Ì·ïµĞ µÚ
-	// È£ÃâÇÒ ¶§ ¸Å°³º¯¼ö¸¦ °Ç³×ÁÙ ¼öµµ ÀÖ½À´Ï´Ù.
+	// bindí•  ë•Œ ëª¨ë“  ë§¤ê°œë³€ìˆ˜ë¥¼ bindí•˜ì§€ ì•Šê³ ë„ placeholderë¥¼ ì‚¬ìš©í•˜ì—¬ ì¼ë‹¨ ë¯¸ë¤„ë‘” ë’¤
+	// í˜¸ì¶œí•  ë•Œ ë§¤ê°œë³€ìˆ˜ë¥¼ ê±´ë„¤ì¤„ ìˆ˜ë„ ìˆìŠµë‹ˆë‹¤.
 	std::cout << "<bind member function2> " << std::endl;
 	std::function<int(float)> _bindMemberFunction2 = std::bind(&SomeClass::SayVar, &_instance, _num, _char, std::placeholders::_1);
 	_char = 'b';
 	// SomeClass::SayVar: 1 a 10
-	// Áï, bindÇÑ ÀÌÈÄ¿¡ ¹Ù²ï _char°ªÀº ¹İ¿µµÇÁö ¾Ê½À´Ï´Ù.
+	// ì¦‰, bindí•œ ì´í›„ì— ë°”ë€ _charê°’ì€ ë°˜ì˜ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.
 	std::cout << _bindMemberFunction2(10.f) << std::endl;
 
 	return 0;
